@@ -36,7 +36,12 @@ const editar = async (args) => {
     const text = "UPDATE estudiante SET nombre = $1, curso = $2, nivel = $3 WHERE rut = $4";
     const values = [nombre, curso, nivel, rut];
     const result = await pool.query(text, values);
-    console.log(chalk.white.bgGreen.bold(`Estudiante ${nombre} editado con éxito`));
+    if (result.rowCount === 0) {
+      console.log(chalk.white.bgBlueBright.bold(`No hay estudiante con RUT ${rut}`));
+    } else {
+      console.log(chalk.white.bgGreen.bold(`Estudiante ${nombre} editado con éxito`));
+    }
+    
   } catch (e) {
     console.log(chalk.white.bgRed.bold(`Hubo un error al editar datos del estudiante: ${e}`));
   }
@@ -95,31 +100,36 @@ const eliminar = async (args) => {
 };
 
 const main = async () => {
-
   const args = process.argv.slice(2);
   const option = args[0]; // OPCION DE LA FUNCION
-  const argsFunction = args.slice(1); //ARGUMENTOS DE LA FUNCTION - SIN CONSIDERAR OPCION ESCOGIDA
+  const argsFunction = args.slice(1); // ARGUMENTOS DE LA FUNCTION - SIN CONSIDERAR OPCION ESCOGIDA
 
-  switch (option) {
-    case 'nuevo':
-      await nuevo(argsFunction);
-      break;
-    case 'editar':
-      await editar(argsFunction);
-      break;
-    case 'rut':
-      await rut(argsFunction);
-      break;
-    case 'consulta':
-      await consulta();
-      break;
-    case 'eliminar':
-      await eliminar(argsFunction);
-      break;
-    default:
-      console.log(chalk.bgMagenta.bold(`Opción "${option}" no válida.`));
-      console.log(chalk.bgMagenta.bold(`Opciones válidas: nuevo, editar, rut, consulta, eliminar`));
-
+  try {
+    switch (option) {
+      case 'nuevo':
+        await nuevo(argsFunction);
+        break;
+      case 'editar':
+        await editar(argsFunction);
+        break;
+      case 'rut':
+        await rut(argsFunction);
+        break;
+      case 'consulta':
+        await consulta();
+        break;
+      case 'eliminar':
+        await eliminar(argsFunction);
+        break;
+      default:
+        console.log(chalk.bgMagenta.bold(`Opción "${option}" no válida.`));
+        console.log(chalk.bgMagenta.bold(`Opciones válidas: nuevo, editar, rut, consulta, eliminar`));
+        pool.end();//FIN
+    }
+    pool.end();//FIN EN CADA CONSULTA
+  } catch (error) {
+    console.error(chalk.red.bold(`Error: ${error.message}`));
+    pool.end();; // FIN
   }
 };
 
