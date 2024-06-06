@@ -17,9 +17,9 @@
 ### En el terminal del proyecto, copia y pega los siguientes comandos para hacer pruebas:
 
 1. Para agregar estudiante: node server.js nuevo "22.588.685-6" "maria maurel" "guitarra" 5 
-2. Para editar estudiante: node server editar "22.588.685-6" "maria maurel" "guitarra" 7
-3. Para buscar por RUT: node server rut "22.588.685-6"
-4. Para mostrar a todos los estudiantes: node server consulta 
-5. Para eliminar un estudiante: node server eliminar "22.588.685-6"
+2. Para editar estudiante: node server.js editar "22.588.685-6" "maria maurel" "guitarra" 7
+3. Para buscar por RUT: node server.js rut "22.588.685-6"
+4. Para mostrar a todos los estudiantes: node server.js consulta 
+5. Para eliminar un estudiante: node server.js eliminar "22.588.685-6"
 
 
