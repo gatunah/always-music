@@ -10,7 +10,7 @@
 
 1. Ejecuta el Script en la Shell de Psql (Debes tener instalado Postgres).
 2. La Base de datos es llamada "escuela_a_m", la cual será borrada en caso de existencia y creada junto a su tabla "estudiante".
-3. En en proyecto modificar parámetros de conexión a la BD según tú caso.
+3. En el proyecto modificar parámetros de conexión a la BD según sea tú caso.
 
 ## Ejecución y pruebas
 
